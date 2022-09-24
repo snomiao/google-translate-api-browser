@@ -22,10 +22,12 @@ function token(text: string) {
 }
 
 let CORSService: string = "";
+let CORSEncodeURI: boolean = false;
 
 // setup your own cors-anywhere server
-export const setCORS = (CORSURL: string) => {
+export const setCORS = (CORSURL: string, { encode = false }) => {
   CORSService = CORSURL;
+  CORSEncodeURI = encode;
   return translate;
 };
 
@@ -89,8 +91,8 @@ export function translate(
     })
     .then(url => {
       return axios
-        .get(CORSService + url)
-        .then(res_ => {
+        .get(CORSService ? CORSService + (CORSEncodeURI ? encodeURIComponent(url) : url) : url)
+        .then((res_) => {
           const res = {
             body: JSON.stringify(res_.data)
           };
