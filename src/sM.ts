@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 // BEGIN
 export default function sM(a: string) {
   let e = [];
